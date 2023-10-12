@@ -1,7 +1,7 @@
 const http = require('http');
 
 // URL del servidor web al que deseas enviar la solicitud
-const url = 'http://localhost/first-proyect';
+const url = 'http://www.minip1.com';
 
 // Enviar una solicitud GET al servidor web
 const solicitud = http.get(url, (respuesta) => {
@@ -21,9 +21,9 @@ const solicitud = http.get(url, (respuesta) => {
     respuesta.on('end', () => {
         // Imprimir el contenido de la página web
         console.log('\nContenido de la página web:');
+    });
         console.log(contenido);
     });
-});
 
 // Manejar errores de la solicitud
 solicitud.on('error', (error) => {

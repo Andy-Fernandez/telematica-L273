@@ -3,7 +3,7 @@ const http = require('http');
 
 // Definimos las opciones de la solicitud HTTP
 const options = {
-    host: 'www.facebook.com',  // La dirección del servidor al que nos conectaremos
+    host: 'http://www.minip1.com',  // La dirección del servidor al que nos conectaremos
     path: '/',                // La ruta a la que realizaremos la solicitud (en este caso, la raíz)
     port: 80,                 // El puerto del servidor HTTP (80 es el puerto estándar para HTTP)
     //method: 'GET'             // El método HTTP que usaremos (en este caso, GET)
