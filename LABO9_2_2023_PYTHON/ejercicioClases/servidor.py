@@ -26,21 +26,20 @@ def registrar_asistencia(apellido, hora, evento):
 def handle_client(client_socket):
     request = client_socket.recv(1024).decode()
 
-    if "entrada" in request:
-        apellido, hora, evento = request.split()
-        #hora_actual = datetime.now().strftime("%H:%M:%S")
-        hora_actual = hora
-        if evento == "entrada" and "08:00:00" <= hora_actual <= "08:30:00":
-            registrar_asistencia(apellido, hora_actual, evento)
-            response = f"¡Asistencia registrada! {hora_actual}"
-        elif evento == "salida" and "12:00:00" <= hora_actual <= "12:30:00":
-            registrar_asistencia(apellido, hora_actual, evento)
-            response = f"¡Asistencia registrada! {hora_actual}"
-        else:
-            response = f"¡Asistencia registrada! {hora_actual}"
-            response = "Fuera de horario de asistencia."
+    apellido, hora, evento = request.split()
+    #hora_actual = datetime.now().strftime("%H:%M:%S")
+    hora_actual = hora
+    if evento == "entrada" and "08:00:00" <= hora_actual <= "08:30:00":
+        registrar_asistencia(apellido, hora_actual, evento)
+        print(f"Entrada registrada para {apellido} a las {hora_actual}")
+        response = f"¡Asistencia registrada! {hora_actual}"
+    elif evento == "salida" and "12:00:00" <= hora_actual <= "12:30:00":
+        registrar_asistencia(apellido, hora_actual, evento)
+        print(f"Salida registrada para {apellido} a las {hora_actual}")
+        response = f"¡Asistencia registrada! {hora_actual}"
     else:
-        response = "Solicitud no válida."
+        response = "Fuera de horario de asistencia."
+  
 
     client_socket.send(response.encode())
     client_socket.close()
