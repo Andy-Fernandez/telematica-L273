@@ -1,10 +1,12 @@
 from socket import *
 
+#En resumen, este código establece una conexión a un servidor Apache, envía una solicitud HEAD, recibe la respuesta del servidor y la muestra en la terminal. Esto es una implementación básica de un cliente HTTP.
+
 # Dirección del servidor Apache y el puerto (generalmente 80)
 server_address = ('localhost', 80)
 
 # Crear un socket TCP
-client_socket = socket(AF_INET,SOCK_STREAM)
+client_socket = socket(AF_INET, SOCK_STREAM)
 
 # Conectar al servidor
 client_socket.connect(server_address)
@@ -13,8 +15,6 @@ client_socket.connect(server_address)
 request = "HEAD / HTTP/1.1\r\n" \
           "Host: localhost\r\n" \
           "Connection: close\r\n\r\n"
-
-#HEAD / HTTP/1.1\r\nHost: {url}\r\n\r\n"
 
 # Enviar la solicitud al servidor
 client_socket.send(request.encode())

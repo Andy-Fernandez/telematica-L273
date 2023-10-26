@@ -1,6 +1,6 @@
-from socket import*                     
+from socket import*
 
-addr = ("localhost",7777)
+addr = ("localhost",7778)
 sockClient = socket(AF_INET,SOCK_DGRAM)      #creando socket
 
 numero = int(input(" Intro numero: "))

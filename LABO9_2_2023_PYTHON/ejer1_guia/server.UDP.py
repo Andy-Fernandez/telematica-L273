@@ -1,6 +1,6 @@
 from socket import*							
 
-addr = ("localhost",7777)
+addr = ("localhost",7778)
 serverSock = socket(AF_INET,SOCK_DGRAM) 	
 serverSock.bind(addr)                   	
 

@@ -1,6 +1,8 @@
 from socket import*							#importando el socket
 
-addr = ("",7777)
+### El servidor UDP recibe una solicitud y responde con la misma solicitud en mayúsculas
+
+addr = ("",7778)
 serverSock = socket(AF_INET,SOCK_DGRAM) 	#creando socket
 serverSock.bind(addr)                   	#vinculamos direccion y puerto con socket
 
