@@ -84,5 +84,7 @@ for i in range(mensajes, mensajes - N, -1):
             #     # abrir el navegador 
             #     webbrowser.open(ruta_archivo) 
 #             print("********************************") 
+
+
 imap.close() 
 imap.logout()
