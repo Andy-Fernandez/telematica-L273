@@ -7,7 +7,6 @@ import os
 from getpass import getpass 
 
 def autenticar():
-    # Ya tienes esta parte en tu código para iniciar sesión.
     imap.login(username, password)
     print("Sesión IMAP autenticada con éxito.")
 
@@ -63,7 +62,7 @@ def leer_correo():
                                     # crear una carpeta para el mensaje 
                                     os.mkdir(subject) 
                                 ruta_archivo = os.path.join(subject, nombre_archivo) 
-                                # download attachment and save it 
+                                # descargar el archivo adjunto y guardarlo
                                 open(ruta_archivo, "wb").write(part.get_payload(decode=True)) 
                 else: 
                     # contenido del mensaje 
