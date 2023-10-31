@@ -3,7 +3,8 @@ import email
 from email.header import decode_header 
 import os 
 from getpass import getpass 
- 
+
+
 # Datos del usuario 
 username = input("Correo: ") 
 password = getpass("Password: ") 
@@ -13,9 +14,35 @@ imap = imaplib.IMAP4_SSL("outlook.office365.com")
 # iniciar sesión 
 imap.login(username, password) 
   
-status, mensajes = imap.select("INBOX") 
-print(mensajes) 
 
+
+# Menú
+while True:
+    print("Opciones:")
+    print("1. Autenticación")
+    print("2. Leer Correo")
+    print("3. Crear Buzón")
+    print("4. Borrar Buzón")
+    print("5. Renombrar Buzón")
+    print("6. Salir del Servicio")
+
+    opcion = input("Elige una opción (1/2/3/4/5/6): ")
+
+    if opcion == "1":
+        autenticar()
+    elif opcion == "2":
+        leer_correo()
+    elif opcion == "3":
+        crear_buzon()
+    elif opcion == "4":
+        borrar_buzon()
+    elif opcion == "5":
+        renombrar_buzon()
+    elif opcion == "6":
+        salir_del_servicio()
+    else:
+        print("Opción no válida. Inténtalo de nuevo.")
+        
 
 def autenticar():
     # Ya tienes esta parte en tu código para iniciar sesión.
@@ -23,6 +50,8 @@ def autenticar():
     print("Sesión IMAP autenticada con éxito.")
 
 def leer_correo():
+    status, mensajes = imap.select("INBOX") 
+    print(mensajes) 
     # mensajes a recibir 
     N = 3 
     # cantidad total de correos 
