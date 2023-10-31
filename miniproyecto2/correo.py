@@ -1,48 +1,10 @@
+#Correo: miniproy3PC@outlook.com
+#Contraseña: MiniProyecto3
 import imaplib 
 import email 
 from email.header import decode_header 
 import os 
 from getpass import getpass 
-
-
-# Datos del usuario 
-username = input("Correo: ") 
-password = getpass("Password: ") 
- 
-# Crear conexión 
-imap = imaplib.IMAP4_SSL("outlook.office365.com") 
-# iniciar sesión 
-imap.login(username, password) 
-  
-
-
-# Menú
-while True:
-    print("Opciones:")
-    print("1. Autenticación")
-    print("2. Leer Correo")
-    print("3. Crear Buzón")
-    print("4. Borrar Buzón")
-    print("5. Renombrar Buzón")
-    print("6. Salir del Servicio")
-
-    opcion = input("Elige una opción (1/2/3/4/5/6): ")
-
-    if opcion == "1":
-        autenticar()
-    elif opcion == "2":
-        leer_correo()
-    elif opcion == "3":
-        crear_buzon()
-    elif opcion == "4":
-        borrar_buzon()
-    elif opcion == "5":
-        renombrar_buzon()
-    elif opcion == "6":
-        salir_del_servicio()
-    else:
-        print("Opción no válida. Inténtalo de nuevo.")
-        
 
 def autenticar():
     # Ya tienes esta parte en tu código para iniciar sesión.
@@ -54,8 +16,8 @@ def leer_correo():
     print(mensajes) 
     # mensajes a recibir 
     N = 3 
-    # cantidad total de correos 
-    mensajes = int(mensajes[0]) 
+    # cantidad total de correos
+    mensajes = int(mensajes[0])
     
     for i in range(mensajes, mensajes - N, -1): 
         # print(f"vamos por el mensaje: {i}") 
@@ -152,6 +114,45 @@ def salir_del_servicio():
     imap.logout()
     print("Sesión IMAP cerrada. Adiós.")
     exit()
+# Datos del usuario 
+username = input("Correo: ") 
+password = getpass("Password: ") 
+ 
+# Crear conexión 
+imap = imaplib.IMAP4_SSL("outlook.office365.com") 
+# iniciar sesión 
+imap.login(username, password) 
+
+
+
+# Menú
+while True:
+    print("Opciones:")
+    print("1. Autenticación")
+    print("2. Leer Correo")
+    print("3. Crear Buzón")
+    print("4. Borrar Buzón")
+    print("5. Renombrar Buzón")
+    print("6. Salir del Servicio")
+
+    opcion = input("Elige una opción (1/2/3/4/5/6): ")
+
+    if opcion == "1":
+        autenticar()
+    elif opcion == "2":
+        leer_correo()
+    elif opcion == "3":
+        crear_buzon()
+    elif opcion == "4":
+        borrar_buzon()
+    elif opcion == "5":
+        renombrar_buzon()
+    elif opcion == "6":
+        salir_del_servicio()
+    else:
+        print("Opción no válida. Inténtalo de nuevo.")
+        
+
 
 
 imap.close() 
