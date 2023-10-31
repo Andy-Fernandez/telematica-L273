@@ -1,0 +1,2 @@
+outlook.office365.com
+imap.gmail.com
