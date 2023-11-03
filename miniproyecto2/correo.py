@@ -1,9 +1,10 @@
+#Hola Carlos, te dejo los datos de la cuenta de correo para que puedas probar el programa.
 #Correo: miniproy3PC@outlook.com
 #Contraseña: MiniProyecto3
-import imaplib 
-import email 
+import imaplib
+import email
 from email.header import decode_header 
-import os 
+import os
 from getpass import getpass 
 
 def autenticar():
@@ -11,66 +12,73 @@ def autenticar():
     print("Sesión IMAP autenticada con éxito.")
 
 def leer_correo():
+    # Selecciona la bandeja de entrada "INBOX"
     status, mensajes = imap.select("INBOX") 
-    print(mensajes) 
-    # mensajes a recibir 
+    print(mensajes)  # Muestra la cantidad total de mensajes en la bandeja de entrada
+    
+    # Número de mensajes a recibir
     N = 3 
-    # cantidad total de correos
+    # Cantidad total de correos
     mensajes = int(mensajes[0])
     
+    # Itera desde el último mensaje al tercer mensaje más reciente
     for i in range(mensajes, mensajes - N, -1): 
-        # print(f"vamos por el mensaje: {i}") 
-    #     # Obtener el mensaje 
         try: 
+            # Obtiene el mensaje utilizando el estándar RFC822
             res, mensaje = imap.fetch(str(i), "(RFC822)") 
         except: 
             break 
+        
         for respuesta in mensaje: 
             if isinstance(respuesta, tuple): 
-                # Obtener el contenido 
+                # Obtiene el contenido del mensaje y lo convierte en un objeto email
                 mensaje = email.message_from_bytes(respuesta[1]) 
-                # decodificar el contenido 
+                
+                # Decodifica el asunto del mensaje
                 subject = decode_header(mensaje["Subject"])[0][0] 
                 if isinstance(subject, bytes): 
-                    # convertir a string 
+                    # Convierte el asunto a una cadena (string)
                     subject = subject.decode() 
-                # de donde viene el correo 
+                
+                # Obtiene la dirección de correo del remitente
                 from_ = mensaje.get("From") 
                 print("Subject:", subject) 
                 print("From:", from_) 
-                print("Mensaje obtenido con exito") 
-                # si el correo es html 
+                print("Mensaje obtenido con éxito") 
+                
+                # Verifica si el correo es multipart (contiene múltiples partes)
                 if mensaje.is_multipart(): 
-                    # Recorrer las partes del correo 
+                    # Recorre las partes del correo
                     for part in mensaje.walk(): 
-                        # Extraer el contenido 
+                        # Extrae el tipo de contenido y disposición de la parte
                         content_type = part.get_content_type() 
                         content_disposition = str(part.get("Content-Disposition")) 
+                        
                         try: 
-                            # el cuerpo del correo 
+                            # Obtiene el cuerpo del correo, decodifica y lo muestra
                             body = part.get_payload(decode=True).decode() 
                         except: 
                             pass 
+                        
                         if content_type == "text/plain" and "attachment" not in content_disposition: 
-                            # Mostrar el cuerpo del correo 
+                            # Muestra el cuerpo del correo si es de tipo "text/plain" sin archivo adjunto
                             print(body) 
                         elif "attachment" in content_disposition: 
-    #                         # download attachment 
+                            # Si hay un archivo adjunto
                             nombre_archivo = part.get_filename() 
                             if nombre_archivo: 
                                 if not os.path.isdir(subject): 
-                                    # crear una carpeta para el mensaje 
+                                    # Crea una carpeta con el nombre del asunto para guardar el archivo adjunto
                                     os.mkdir(subject) 
                                 ruta_archivo = os.path.join(subject, nombre_archivo) 
-                                # descargar el archivo adjunto y guardarlo
+                                # Descarga y guarda el archivo adjunto
                                 open(ruta_archivo, "wb").write(part.get_payload(decode=True)) 
                 else: 
-                    # contenido del mensaje 
+                    # Si el correo no es multipart, obtiene el contenido del cuerpo
                     content_type = mensaje.get_content_type() 
-                    # cuerpo del mensaje 
                     body = mensaje.get_payload(decode=True).decode() 
                     if content_type == "text/plain": 
-    #                     # mostrar solo el texto 
+                        # Muestra el cuerpo del correo si es de tipo "text/plain"
                         print(body) 
                 # if content_type == "text/html": 
                 #     # Abrir el html en el navegador 
@@ -113,16 +121,15 @@ def salir_del_servicio():
     imap.logout()
     print("Sesión IMAP cerrada. Adiós.")
     exit()
-# Datos del usuario 
+
+# Datos del usuario
 username = input("Correo: ") 
 password = getpass("Password: ") 
- 
-# Crear conexión 
-imap = imaplib.IMAP4_SSL("outlook.office365.com") 
-# iniciar sesión 
-imap.login(username, password) 
 
-
+# Crear conexión
+imap = imaplib.IMAP4_SSL("outlook.office365.com")
+# iniciar sesión
+imap.login(username, password)
 
 # Menú
 while True:
@@ -150,9 +157,6 @@ while True:
         salir_del_servicio()
     else:
         print("Opción no válida. Inténtalo de nuevo.")
-        
-
-
 
 imap.close() 
 imap.logout()
